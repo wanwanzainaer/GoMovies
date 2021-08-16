@@ -1,6 +1,17 @@
 import React, { Fragment } from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useParams,
+  useRouteMatch,
+} from 'react-router-dom';
+import Movies from './components/Movies';
+import Admin from './components/Admin';
+import Home from './components/Home';
+import Categories from './components/Categories';
+import Movie from './components/Movie';
 const App = () => {
   return (
     <Router>
@@ -20,6 +31,9 @@ const App = () => {
                   <Link to="/movies">Movies</Link>
                 </li>
                 <li className="list-group-item">
+                  <Link to="/by-category">By Category</Link>
+                </li>
+                <li className="list-group-item">
                   <Link to="/admin">Manage Catalogue</Link>
                 </li>
               </ul>
@@ -29,6 +43,13 @@ const App = () => {
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/movies" component={Movies} />
+              <Route exact path="/by-category" component={CategoryPage} />
+              <Route
+                exact
+                path="/by-category/drama"
+                render={(props) => <Categories {...props} title={`Drama`} />}
+              />
+              <Route path="/movies/:id" component={Movie} />
               <Route exact path="/admin" component={Admin} />
             </Switch>
           </div>
@@ -37,13 +58,23 @@ const App = () => {
     </Router>
   );
 };
-function Home() {
-  return <h2>Home</h2>;
+
+function CategoryPage() {
+  let { path, url } = useRouteMatch();
+  return (
+    <div>
+      <h2>Categories</h2>
+
+      <ul>
+        <li>
+          <Link to={`${path}/drama`}>Drama</Link>
+        </li>
+        <li>
+          <Link to={`${path}/comedy`}>Comedy</Link>
+        </li>
+      </ul>
+    </div>
+  );
 }
-function Movies() {
-  return <h2>Movies</h2>;
-}
-function Admin() {
-  return <h2>Admin</h2>;
-}
+
 export default App;

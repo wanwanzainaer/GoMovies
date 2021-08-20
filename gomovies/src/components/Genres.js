@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-const Movies = () => {
+const Genres = () => {
   const [state, setState] = useState({
-    movies: [],
+    genres: [],
     isLoaded: false,
     error: null,
   });
 
   useEffect(() => {
-    fetch('http://localhost:4000/v1/movies')
+    fetch('http://localhost:4000/v1/genres')
       .then((res) => {
         if (res.status !== '200') {
           let err = Error;
@@ -19,27 +19,28 @@ const Movies = () => {
       })
       .then((json) => {
         setState(
-          { isLoaded: true, movies: json.movies, error: null },
+          { isLoaded: true, genres: json.genres, error: null },
           (error) => {
-            setState({ isLoaded: true, error, movies: [] });
+            setState({ isLoaded: true, error, genres: [] });
           }
         );
       });
   }, [setState]);
 
-  const { movies, isLoaded, error } = state;
+  const { genres, isLoaded, error } = state;
+
   if (!isLoaded) {
-    return <p>Loading</p>;
+    return <div>Loading</div>;
   } else if (error) {
-    return <div>Error: {error.message}</div>;
+    return <div>Error: {error}</div>;
   }
   return (
     <>
-      <h2>Choose a Movie</h2>
+      <h2>Genres</h2>
       <ul>
-        {movies.map((movie) => (
-          <li key={movie.id}>
-            <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+        {genres.map((m) => (
+          <li key={m.id}>
+            <Link to={`/genres/${m.id}`}>{m.genre_name}</Link>
           </li>
         ))}
       </ul>
@@ -47,4 +48,4 @@ const Movies = () => {
   );
 };
 
-export default Movies;
+export default Genres;

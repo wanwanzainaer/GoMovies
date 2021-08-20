@@ -10,8 +10,8 @@ import {
 import Movies from './components/Movies';
 import Admin from './components/Admin';
 import Home from './components/Home';
-import Categories from './components/Categories';
 import Movie from './components/Movie';
+import Genres from './components/Genres';
 const App = () => {
   return (
     <Router>
@@ -31,7 +31,7 @@ const App = () => {
                   <Link to="/movies">Movies</Link>
                 </li>
                 <li className="list-group-item">
-                  <Link to="/by-category">By Category</Link>
+                  <Link to="/genres">By Genres</Link>
                 </li>
                 <li className="list-group-item">
                   <Link to="/admin">Manage Catalogue</Link>
@@ -43,12 +43,7 @@ const App = () => {
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/movies" component={Movies} />
-              <Route exact path="/by-category" component={CategoryPage} />
-              <Route
-                exact
-                path="/by-category/drama"
-                render={(props) => <Categories {...props} title={`Drama`} />}
-              />
+              <Route exact path="/genres" component={Genres} />
               <Route path="/movies/:id" component={Movie} />
               <Route exact path="/admin" component={Admin} />
             </Switch>
@@ -58,23 +53,5 @@ const App = () => {
     </Router>
   );
 };
-
-function CategoryPage() {
-  let { path, url } = useRouteMatch();
-  return (
-    <div>
-      <h2>Categories</h2>
-
-      <ul>
-        <li>
-          <Link to={`${path}/drama`}>Drama</Link>
-        </li>
-        <li>
-          <Link to={`${path}/comedy`}>Comedy</Link>
-        </li>
-      </ul>
-    </div>
-  );
-}
 
 export default App;

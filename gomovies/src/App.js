@@ -12,6 +12,7 @@ import Admin from './components/Admin';
 import Home from './components/Home';
 import Movie from './components/Movie';
 import Genres from './components/Genres';
+import Genre from './components/Genre';
 const App = () => {
   return (
     <Router>
@@ -44,6 +45,7 @@ const App = () => {
               <Route exact path="/" component={Home} />
               <Route exact path="/movies" component={Movies} />
               <Route exact path="/genres" component={Genres} />
+              <Route exact path="/genres/:id" component={Genre} />
               <Route path="/movies/:id" component={Movie} />
               <Route exact path="/admin" component={Admin} />
             </Switch>

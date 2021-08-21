@@ -37,13 +37,17 @@ const Genres = () => {
   return (
     <>
       <h2>Genres</h2>
-      <ul>
+      <div className="list-group">
         {genres.map((m) => (
-          <li key={m.id}>
-            <Link to={`/genres/${m.id}`}>{m.genre_name}</Link>
-          </li>
+          <Link
+            key={m.id}
+            to={{ pathname: `/genres/${m.id}`, genreName: m.genre_name }}
+            className="list-group-item list-group-item-action"
+          >
+            {m.genre_name}
+          </Link>
         ))}
-      </ul>
+      </div>
     </>
   );
 };
